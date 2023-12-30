@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  include JsonWebToken
   skip_before_action :authenticated?, only: [:registration]
 
   def registration
@@ -15,11 +14,5 @@ class UsersController < ApplicationController
   private
     def user_params
       params.require(:user).permit(:username, :email, :password)
-    end
-
-    def create_render_json(user)
-      token = JsonWebToken.encode({ user_id: user[:id] })
-      response = { user: { email: user[:email], token:, username: user[:username], bio: user[:bio], image: nil } }
-      response
     end
 end

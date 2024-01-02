@@ -5,7 +5,8 @@ class Article < ApplicationRecord
   has_many :tags, through: :article_tags
   default_scope -> { order(created_at: :desc) }
   validates :user_id, presence: true
-  validates :title, presence: true
+  validates :title, presence: true, uniqueness: true
+  validates :slug, uniqueness: true
   validates :description, presence: true
   validates :body, presence: true
 

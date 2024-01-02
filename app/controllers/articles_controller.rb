@@ -14,7 +14,7 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def get
+  def list
     limit = params[:limit] || 20
 
     articles = Article.limit(limit)
@@ -28,6 +28,20 @@ class ArticlesController < ApplicationController
     else
       render json: { article: generate_article_response(articles[0]) }
     end
+  end
+
+  def get
+    article = Article.find_by(slug: params[:slug])
+
+    if article
+      render json: { article: generate_article_response(article) }
+    else
+      render json: { message: "not found", status: 404 }
+    end
+  end
+
+  def destroy
+    Article.find_by(slug: params[:slug]).destroy
   end
 
   private

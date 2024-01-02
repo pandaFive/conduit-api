@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
 
     if article.save
       tags.each do |tag|
-        article_tag = article.tags.create(name: tag)
+        article.tags.create(name: tag)
       end
 
       render json: { article: generate_article_response(article) }
@@ -37,6 +37,15 @@ class ArticlesController < ApplicationController
       render json: { article: generate_article_response(article) }
     else
       render json: { message: "not found", status: 404 }
+    end
+  end
+
+  def update
+    current_article = Article.find_by(slug: params[:slug])
+    if current_article.update(article_params)
+      render json: { article: generate_article_response(current_article) }
+    else
+      render json: { message: current_article.errors.full_messages.join(" "), status: 422 }
     end
   end
 

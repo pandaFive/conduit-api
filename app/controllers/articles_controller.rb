@@ -8,9 +8,25 @@ class ArticlesController < ApplicationController
         article_tag = article.tags.create(name: tag)
       end
 
-      render json: { article: generate_article_response(article, tags) }
+      render json: { article: generate_article_response(article) }
     else
       render json: article.errors, status: 422
+    end
+  end
+
+  def get
+    limit = params[:limit] || 20
+
+    articles = Article.limit(limit)
+
+    if articles.length > 1
+      response = articles.reduce([]) do |res, article|
+        res.push(generate_article_response(article))
+      end
+
+      render json: { articles: response, articlesCount: articles.length }
+    else
+      render json: { article: generate_article_response(articles[0]) }
     end
   end
 
@@ -19,8 +35,9 @@ class ArticlesController < ApplicationController
       params.require(:article).permit(:title, :description, :body)
     end
 
-    def generate_article_response(article, tags)
+    def generate_article_response(article)
       user = User.find(article.user_id)
+      tags = article.tags.pluck(:name)
       author = { username: user.username }
       response = { slug: article.slug, title: article.title, description: article.description, body: article.body, tagList: tags, createdAt: article.created_at, updatedAt: article.updated_at, author: author }
       response

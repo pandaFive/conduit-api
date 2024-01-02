@@ -5,7 +5,7 @@ class ApplicationController < ActionController::API
 
   def authenticated?
     token = request.headers["Authorization"]
-    token = token.chomp.split(" ").last if header
+    token = token.chomp.split(" ").last if token
 
     begin
       @decoded = JsonWebToken.decode(token)
@@ -17,11 +17,11 @@ class ApplicationController < ActionController::API
     end
   end
 
-  def render_unuthorized
-    render json: { error: "unuthorized", status: 401 }
-  end
-
   private
+    def render_unuthorized
+      render json: { error: "unuthorized", status: 401 }
+    end
+
     def create_render_json(user)
       token = JsonWebToken.encode({ user_id: user[:id] })
       response = { user: { email: user[:email], token:, username: user[:username], bio: user[:bio], image: nil } }

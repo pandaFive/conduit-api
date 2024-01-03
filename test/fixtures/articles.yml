@@ -1,13 +1,43 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  slug: MyString
-  title: MyString
-  description: MyText
-  body: MyText
+  slug: fact-fulness
+  title: "FACT FULNESS"
+  description: "Ten Reasons We're Wrong About the World--and Why Things Are Better Than You Think"
+  body: “One of the most important books I’ve ever read―an indispensable guide to thinking clearly about the world.”
+  user: one
 
 two:
-  slug: MyString
-  title: MyString
-  description: MyText
-  body: MyText
+  slug: think-clearly
+  title: "Think clearly"
+  description: "The Art of the Good Life"
+  body: "body paragraph"
+  user: one
+
+original:
+  slug: originals
+  title: ORIGINALS
+  description: "How Non-Conformists Move the World"
+  body: “Reading Originals made me feel like I was seated across from Adam Grant at a dinner party, as one of my favorite thinkers thrilled me with his insights and his wonderfully new take on the world.”
+  user: one
+
+life:
+  slug: life-span
+  title: "LIFE SPAN"
+  description: "Why We Age―and Why We Don't Have To"
+  body: "This eye-opening and provocative work takes us to the frontlines of research that is pushing the boundaries on our perceived scientific limitations, revealing incredible breakthroughs—many from Dr. David Sinclair’s own lab at Harvard—that demonstrate how we can slow down, or even reverse, aging. The key is activating newly discovered vitality genes, the descendants of an ancient genetic survival circuit that is both the cause of aging and the key to reversing it. Recent experiments in genetic reprogramming suggest that in the near future we may not just be able to feel younger, but actually become younger."
+  user: one
+
+emotion:
+  slug: how-emotions-are-made
+  title: "HOW EMOTIONS ARE MADE"
+  description: "The Secret Life the Brain"
+  body: "Preeminent psychologist Lisa Barrett lays out how the brain constructs emotions in a way that could revolutionize psychology, health care, the legal system, and our understanding of the human mind."
+  user: two
+
+# <% 30.times do |n| %>
+# article_<%= n %>:
+#   title: <%= Faker::Book.title %>
+#   description: <%= Faker::Lorem.sentence %>
+#   body: <%= Faker::Lorem.paragraphs(number: 3).join(" ") %>
+#   user: two
+# <% end %>

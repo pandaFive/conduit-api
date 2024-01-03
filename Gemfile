@@ -12,6 +12,7 @@ gem "bcrypt",      "~> 3.1.7"
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap",    require: false
 gem "rack-cors",   "~> 2.0", ">= 2.0.1"
+gem "faker",       "~> 3.2", ">= 3.2.2"
 
 group :development, :test do
   gem "debug",  ">= 1.0.0", platforms: %i[ mri mingw x64_mingw ]
@@ -28,7 +29,10 @@ group :development do
 end
 
 group :test do
+  gem "minitest",                "~> 5.20"
+  gem "minitest-reporters",      "~> 1.6", ">= 1.6.1"
   gem "guard",                   "~> 2.18", ">= 2.18.1"
+  gem "guard-minitest",          "~> 2.4", ">= 2.4.6"
   gem "simplecov",               require: false
   gem "rails-controller-testing"
   gem "selenium-webdriver",      "~> 4.16"

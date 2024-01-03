@@ -6,7 +6,7 @@ class AuthenticationsController < ApplicationController
     if user && user.authenticate(params[:user][:password])
       render json: create_render_json(user)
     else
-      render json: { message: user.errors.full_message.join(" "), status: 402 }, status: :unprocessable_entity
+      render json: { status: 402 }, status: :unprocessable_entity
     end
   end
 end

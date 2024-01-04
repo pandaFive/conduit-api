@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :articles, dependent: :destroy
+  has_many :favorites
   validates :username, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGES = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
@@ -14,5 +15,12 @@ class User < ApplicationRecord
                                                     BCrypt::Engine.cost
       BCrypt::Password.create(string, cost: cost)
     end
+  end
+
+  def generate_profile_response
+    response = {
+      username: self.username,
+    }
+    response
   end
 end

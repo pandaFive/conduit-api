@@ -6,7 +6,11 @@ class FavoritesController < ApplicationController
     if favorite.save
       render json: { article: current_article.generate_response(@current_user) }
     else
-      render json: { status: 402 }, status: :unprocessable_entity
+      if favorite
+        render json: { status: 402, message: favorite.errors.full_messages[0] }, status: :unprocessable_entity
+      else
+        render json: { status: 402 }, status: :unprocessable_entity
+      end
     end
   end
 

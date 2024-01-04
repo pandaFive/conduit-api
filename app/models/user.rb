@@ -20,6 +20,8 @@ class User < ApplicationRecord
   def generate_profile_response
     response = {
       username: self.username,
+      bio: self.bio,
+      image: self.image,
     }
     response
   end

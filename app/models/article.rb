@@ -36,7 +36,7 @@ class Article < ApplicationRecord
   end
 
   def get_favorite_count
-    favorite = Favorite.find_by(article_id: self.id)
+    favorite = Favorite.where(article_id: self.id)
     count = favorite ? favorite.count : 0
     count
   end

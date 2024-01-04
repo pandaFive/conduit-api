@@ -8,7 +8,7 @@ class ArticlesController < ApplicationController
         article.tags.create(name: tag)
       end
 
-      render json: { article: generate_article_response(article) }
+      render json: { article: article.generate_response(@current_user) }
     else
       render json: article.errors, status: 422
     end
@@ -21,12 +21,12 @@ class ArticlesController < ApplicationController
 
     if articles.length > 1
       response = articles.reduce([]) do |res, article|
-        res.push(generate_article_response(article))
+        res.push(article.generate_response(@current_user))
       end
 
       render json: { articles: response, articlesCount: articles.length }
     else
-      render json: { article: generate_article_response(articles[0]) }
+      render json: { article: articels[0].generate_response }
     end
   end
 
@@ -34,7 +34,7 @@ class ArticlesController < ApplicationController
     article = Article.find_by(slug: params[:slug])
 
     if article
-      render json: { article: generate_article_response(article) }
+      render json: { article: article.generate_response(@current_user) }
     else
       render json: { message: "not found", status: 404 }
     end
@@ -43,7 +43,7 @@ class ArticlesController < ApplicationController
   def update
     current_article = Article.find_by(slug: params[:slug])
     if current_article.update(article_params)
-      render json: { article: generate_article_response(current_article) }
+      render json: { article: generate_response(@current_user) }
     else
       render json: { message: current_article.errors.full_messages.join(" "), status: 422 }
     end
@@ -56,13 +56,5 @@ class ArticlesController < ApplicationController
   private
     def article_params
       params.require(:article).permit(:title, :description, :body)
-    end
-
-    def generate_article_response(article)
-      user = User.find(article.user_id)
-      tags = article.tags.pluck(:name)
-      author = { username: user.username }
-      response = { slug: article.slug, title: article.title, description: article.description, body: article.body, tagList: tags, createdAt: article.created_at, updatedAt: article.updated_at, author: author }
-      response
     end
 end

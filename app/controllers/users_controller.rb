@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   skip_before_action :authenticated?, only: [:registration]
 
+  def get
+    render json: create_render_json(@current_user)
+  end
+
   def registration
     user = User.new(user_params)
 

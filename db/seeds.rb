@@ -1,5 +1,5 @@
 User.create!(username: "Example User",
-             email: "testemail@test.org",
+             email: "testema1l@test.org",
              password: "foobarbuz")
 
 10.times do |n|

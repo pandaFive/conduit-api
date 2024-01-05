@@ -11,6 +11,15 @@ class Article < ApplicationRecord
   validates :description, presence: true
   validates :body, presence: true
 
+  scope :author_in, -> (name) { where(user_id: User.where(username: name).pluck(:id)) }
+  scope :favorited_in, -> (name) { joins(:favorites).where(favorites: { user_id: User.where(username: name).pluck(:id) }) }
+  scope :tags_in, -> (tag_name) { joins(:tags).where(tags: { name: tag_name }) }
+
+  def self.search_author(name)
+    id = User.where(username: name).pluck(:id)
+    author_in(id)
+  end
+
   def generate_slug
     self.slug = self.title.parameterize if title.present?
   end

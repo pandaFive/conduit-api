@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   get    "/api/articles/:slug",           to: "articles#get"
   put    "/api/articles/:slug",           to: "articles#update"
   delete "/api/articles/:slug",           to: "articles#destroy"
-  post   "/api/articles/:slug/favorites", to: "favorites#create"
-  delete "/api/articles/:slug/favorites", to: "favorites#destroy"
+  post   "/api/articles/:slug/favorite", to: "favorites#create"
+  delete "/api/articles/:slug/favorite", to: "favorites#destroy"
 end

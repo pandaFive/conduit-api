@@ -49,7 +49,7 @@ class ArticlesController < ApplicationController
   def update
     current_article = Article.find_by(slug: params[:slug])
     if current_article.update(article_params)
-      render json: { article: generate_response(@current_user) }
+      render json: { article: current_article.generate_response(@current_user) }
     else
       render json: { message: current_article.errors.full_messages.join(" "), status: 422 }
     end

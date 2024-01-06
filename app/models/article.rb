@@ -11,13 +11,29 @@ class Article < ApplicationRecord
   validates :description, presence: true
   validates :body, presence: true
 
-  scope :author_in, -> (name) { where(user_id: User.where(username: name).pluck(:id)) }
-  scope :favorited_in, -> (name) { joins(:favorites).where(favorites: { user_id: User.where(username: name).pluck(:id) }) }
-  scope :tags_in, -> (tag_name) { joins(:tags).where(tags: { name: tag_name }) }
+  scope :limit_on, -> (limit) { take(limit) }
+  scope :offset_on, -> (offset) { offset(offset) }
+  scope :author_in, -> (name) {
+    joins(:user).where(users: { username: name })
+  }
+  scope :favorited_in, -> (name) {
+    joins(:favorites).where(favorites: { user_id: User.where(username: name).pluck(:id) })
+  }
+  scope :tags_in, -> (tag_name) {
+    joins(:tags).where(tags: { name: tag_name })
+  }
 
-  def self.search_author(name)
-    id = User.where(username: name).pluck(:id)
-    author_in(id)
+  def self.search_article(params)
+    result = Article.all
+
+    result = result.author_in(params[:author]) if params[:author]
+    result = result.favorited_in(params[:favorited]) if params[:favorited]
+    result = result.tags_in(params[:tag]) if params[:tag]
+    result = result.limit_on(params[:limit]) if params[:limit]
+    result = result.offset_on(params[:offset]) if params[:offset]
+    result = result.limit_on(20) unless params[:limit]
+
+    result
   end
 
   def generate_slug

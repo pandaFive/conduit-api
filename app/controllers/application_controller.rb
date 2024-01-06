@@ -30,6 +30,6 @@ class ApplicationController < ActionController::API
     end
 
     def render_standard_error(error)
-      render json: { error: error.message }, status: :internal_server_error
+      render json: { error: error.message, location: error.backtrace }, status: :internal_server_error
     end
 end

@@ -2,6 +2,11 @@ User.create!(username: "Example User",
              email: "testema1l@test.org",
              password: "foobarbuz")
 
+User.create!(username: "johnjacob",
+             email: "jacobjohn@cobcob.jjj",
+             password: "password")
+
+
 10.times do |n|
   name = Faker::Name.name
   email = "example-#{n + 1}@exampleapi.org"
@@ -22,3 +27,15 @@ users = User.order(:created_at).take(6)
     article.save
   end
 end
+
+Favorite.create!(user_id: 1,
+                 article_id: 1)
+
+Favorite.create!(user_id: 2,
+                 article_id: 1)
+
+Favorite.create!(user_id: 2,
+                 article_id: 3)
+
+Article.first.tags.create(name: "dragons")
+Article.second.tags.create(name: "dragons")

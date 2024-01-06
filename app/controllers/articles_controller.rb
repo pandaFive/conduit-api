@@ -15,9 +15,7 @@ class ArticlesController < ApplicationController
   end
 
   def list
-    limit = params[:limit] || 20
-
-    articles = Article.limit(limit)
+    articles = Article.search_article(search_params)
 
     if articles.length > 1
       response = articles.reduce([]) do |res, article|
@@ -26,7 +24,15 @@ class ArticlesController < ApplicationController
 
       render json: { articles: response, articlesCount: articles.length }
     else
-      render json: { article: articels[0].generate_response }
+      if articles.length >= 0
+        if articles[0] == nil
+          render json: { article: {} }
+        else
+          render json: { article: articles[0].generate_response(@current_user) }
+        end
+      else
+        render json: { status: 402 }, status: :unprocessable_entity
+      end
     end
   end
 
@@ -56,5 +62,9 @@ class ArticlesController < ApplicationController
   private
     def article_params
       params.require(:article).permit(:title, :description, :body)
+    end
+
+    def search_params
+      params.permit(:tag, :author, :favorited, :limit, :offset)
     end
 end

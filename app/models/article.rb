@@ -44,16 +44,17 @@ class Article < ApplicationRecord
     slug
   end
 
-  def generate_response(user)
+  def generate_response(user = false)
+    favorited = !user ? false : favorited?(user)
     response = {
       slug: self.slug,
       title: self.title,
       description: self.description,
       body: self.body,
-      tagList: self.tags.pluck(:name),
+      tagList: self.tags.pluck(:name).sort,
       createdAt: self.created_at,
       updatedAt: self.updated_at,
-      favorited: favorited?(user),
+      favorited:,
       favoritesCount: get_favorite_count,
       author: self.user.generate_profile_response
     }

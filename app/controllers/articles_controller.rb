@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  skip_before_action :authenticated?, only: [:list, :get]
+
   def create
     article = @current_user.articles.build(article_params)
     tags = params[:article][:tagList]
@@ -26,9 +28,9 @@ class ArticlesController < ApplicationController
     else
       if articles.length >= 0
         if articles[0] == nil
-          render json: { article: {} }
+          render json: { articles: {}, articlesCount: 0 }
         else
-          render json: { article: articles[0].generate_response(@current_user) }
+          render json: { articles: articles[0].generate_response(@current_user), articlesCount: 0 }
         end
       else
         render json: { status: 402 }, status: :unprocessable_entity
@@ -42,7 +44,8 @@ class ArticlesController < ApplicationController
     if article
       render json: { article: article.generate_response(@current_user) }
     else
-      render json: { message: "not found", status: 404 }
+      puts "check"
+      render json: { message: "not found", status: 404 }, status: :missing
     end
   end
 

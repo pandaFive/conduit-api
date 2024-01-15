@@ -20,7 +20,7 @@ class ApplicationController < ActionController::API
 
   private
     def render_unuthorized
-      render json: { error: "unuthorized", status: 401 }
+      render json: { error: "unuthorized", status: 401 }, status: :unauthorized
     end
 
     def create_render_json(user)

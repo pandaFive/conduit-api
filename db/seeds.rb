@@ -2,7 +2,7 @@ User.create!(username: "Example User",
              email: "testema1l@test.org",
              password: "foobarbuz")
 
-User.create!(username: "johnjacob",
+User.create!(username: "izach",
              email: "jacobjohn@cobcob.jjj",
              password: "password")
 
@@ -12,8 +12,8 @@ User.create!(username: "johnjacob",
   email = "example-#{n + 1}@exampleapi.org"
   password = "password"
   User.create!(username: name,
-               email: email,
-               password: password)
+               email:,
+               password:)
 end
 
 users = User.order(:created_at).take(6)

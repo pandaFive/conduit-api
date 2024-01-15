@@ -443,3 +443,4 @@ delete http://localhost:3000/api/articles/:slug/favorite
 #### レスポンス
 
 レスポンスなし
+

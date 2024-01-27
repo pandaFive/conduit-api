@@ -38,4 +38,4 @@ Favorite.create!(user_id: 2,
                  article_id: 3)
 
 Article.first.tags.create(name: "dragons")
-Article.second.tags.create(name: "dragons")
+Article.second.tags.create(name: "training")

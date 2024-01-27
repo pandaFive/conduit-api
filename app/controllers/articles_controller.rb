@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  skip_before_action :authenticated?, only: [:list, :get]
+  skip_before_action :authenticated?, only: [:list, :get, :count]
 
   def create
     article = @current_user.articles.build(article_params)
@@ -7,7 +7,13 @@ class ArticlesController < ApplicationController
 
     if article.save
       tags.each do |tag|
-        article.tags.create(name: tag)
+        tag_recode = Tag.find_by(name: tag)
+        if tag_recode
+          article_tag = ArticleTag.new(article_id: article.id, tag_id: tag_recode.id)
+          article_tag.save
+        else
+          article.tags.create(name: tag)
+        end
       end
 
       render json: { article: article.generate_response(@current_user) }
@@ -35,6 +41,16 @@ class ArticlesController < ApplicationController
       else
         render json: { status: 402 }, status: :unprocessable_entity
       end
+    end
+  end
+
+  def count
+    response = Article.count
+
+    if response == nil
+      render json: { count: 0 }
+    else
+      render json: { count: response }
     end
   end
 

@@ -5,9 +5,11 @@ Rails.application.routes.draw do
   put    "/api/user",                     to: "users#update"
   post   "/api/articles",                 to: "articles#create"
   get    "/api/articles",                 to: "articles#list"
+  get    "/api/articles/count",           to: "articles#count"
   get    "/api/articles/:slug",           to: "articles#get"
   put    "/api/articles/:slug",           to: "articles#update"
   delete "/api/articles/:slug",           to: "articles#destroy"
-  post   "/api/articles/:slug/favorite", to: "favorites#create"
-  delete "/api/articles/:slug/favorite", to: "favorites#destroy"
+  post   "/api/articles/:slug/favorite",  to: "favorites#create"
+  delete "/api/articles/:slug/favorite",  to: "favorites#destroy"
+  get    "/api/tags",                     to: "tags#index"
 end

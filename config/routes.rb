@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   post   "/api/users/login",              to: "authentications#login"
   get    "/api/user",                     to: "users#get"
   put    "/api/user",                     to: "users#update"
+  get    "/api/profile/:username",        to: "users#profile"
   post   "/api/articles",                 to: "articles#create"
   get    "/api/articles",                 to: "articles#list"
   get    "/api/articles/count",           to: "articles#count"

@@ -34,7 +34,7 @@ class ArticlesController < ApplicationController
     else
       if articles.length >= 0
         if articles[0] == nil
-          render json: { articles: {}, articlesCount: 0 }
+          render json: { articles: [], articlesCount: 0 }
         else
           render json: { articles: articles[0].generate_response(@current_user), articlesCount: 0 }
         end

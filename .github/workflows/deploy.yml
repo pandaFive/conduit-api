@@ -1,0 +1,55 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - users: actions/checkout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf
+        with:
+          ruby-version: "3.2"
+      - name: Install dependencies
+        run: bundle install
+      - name: Rubocop
+        run: bundle exec rubocop
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy in Amazon EC2
+        env:
+          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY}}
+          HOSTNAME_ONE: ${{secrets.HOSTNAME_ONE}}
+          HOSTNAME_TWO: ${{secrets.HOSTNAME_TWO}}
+          USER_NAME: ${{secrets.USER_NAME}}
+
+        run: |
+          echo "$PRIVATE_KEY" > private_key && 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME_ONE} '
+          cd /var/www/conduit-api &&
+          git fetch --all &&
+          git reset --hard origin/main &&
+          bundle install &&
+          lsof -t -i:4567 | xargs --no-run-if-empty kill -9 &&
+          systemctl restart puma
+          '
+
+        run: |
+          echo "$PRIVATE_KEY" > private_key && 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME_TWO} '
+          cd /var/www/conduit-api &&
+          git fetch --all &&
+          git reset --hard origin/main &&
+          bundle install &&
+          lsof -t -i:4567 | xargs --no-run-if-empty kill -9 &&
+          systemctl restart puma
+          '

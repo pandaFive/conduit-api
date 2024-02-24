@@ -29,30 +29,28 @@ jobs:
         env:
           PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY}}
           HOSTNAME_ONE: ${{secrets.HOSTNAME_ONE}}
-          HOSTNAME_TWO: ${{secrets.HOSTNAME_TWO}}
           USER_NAME: ${{secrets.USER_NAME}}
-
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME_ONE} '
           cd /var/www/conduit-api &&
           git fetch --all &&
           git reset --hard origin/main &&
-          gem install bundler &&
           bundle install &&
-          lsof -t -i:4567 | xargs --no-run-if-empty kill -9 &&
           systemctl restart puma
           '
 
       - name: Deploy in Amazon EC2 Server 2
+        env:
+          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY}}
+          HOSTNAME_TWO: ${{secrets.HOSTNAME_TWO}}
+          USER_NAME: ${{secrets.USER_NAME}}
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME_TWO} '
           cd /var/www/conduit-api &&
           git fetch --all &&
           git reset --hard origin/main &&
-          gem install bundler &&
           bundle install &&
-          lsof -t -i:4567 | xargs --no-run-if-empty kill -9 &&
           systemctl restart puma
           '

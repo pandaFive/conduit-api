@@ -33,7 +33,7 @@ jobs:
           USER_NAME: ${{secrets.USER_NAME}}
 
         run: |
-          echo "$PRIVATE_KEY" > private_key && 600 private_key
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME_ONE} '
           cd /var/www/conduit-api &&
           git fetch --all &&
@@ -45,7 +45,7 @@ jobs:
 
       - name: Deploy in Amazon EC2 Server 2
         run: |
-          echo "$PRIVATE_KEY" > private_key && 600 private_key
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME_TWO} '
           cd /var/www/conduit-api &&
           git fetch --all &&

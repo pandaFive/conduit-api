@@ -38,6 +38,7 @@ jobs:
           cd /var/www/conduit-api &&
           git fetch --all &&
           git reset --hard origin/main &&
+          gem install bundler &&
           bundle install &&
           lsof -t -i:4567 | xargs --no-run-if-empty kill -9 &&
           systemctl restart puma
@@ -50,6 +51,7 @@ jobs:
           cd /var/www/conduit-api &&
           git fetch --all &&
           git reset --hard origin/main &&
+          gem install bundler &&
           bundle install &&
           lsof -t -i:4567 | xargs --no-run-if-empty kill -9 &&
           systemctl restart puma

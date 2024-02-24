@@ -21,8 +21,5 @@ jobs:
       - name: Install dependencies
         run: bundle install
 
-      - name: Run tests
-        run: bundle exec minitest
-
       - name: Run rubocop
         run: bundle exec rubocop

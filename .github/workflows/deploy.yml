@@ -37,7 +37,7 @@ jobs:
           git fetch --all &&
           git reset --hard origin/main &&
           bundle install &&
-          systemctl restart puma
+          sudo systemctl restart puma
           '
 
       - name: Deploy in Amazon EC2 Server 2
@@ -52,5 +52,5 @@ jobs:
           git fetch --all &&
           git reset --hard origin/main &&
           bundle install &&
-          systemctl restart puma
+          sudo systemctl restart puma
           '

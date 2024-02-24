@@ -1,8 +1,13 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticated?, only: [:registration]
+  skip_before_action :authenticated?, only: [:registration, :profile]
 
   def get
     render json: create_render_json(@current_user)
+  end
+
+  def profile
+    user = User.find_by(username: params[:username])
+    render json: create_render_json(user)
   end
 
   def update

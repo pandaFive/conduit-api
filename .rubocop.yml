@@ -12,38 +12,40 @@ AllCops:
   DisabledByDefault: true
   SuggestExtensions: false
   Exclude:
-    - '**/tmp/**/*'
-    - '**/templates/**/*'
-    - '**/vendor/**/*'
-    - 'actionpack/lib/action_dispatch/journey/parser.rb'
-    - 'actionmailbox/test/dummy/**/*'
-    - 'activestorage/test/dummy/**/*'
-    - 'actiontext/test/dummy/**/*'
-    - 'tools/rail_inspector/test/fixtures/*'
+    - "**/tmp/**/*"
+    - "**/templates/**/*"
+    - "**/vendor/**/*"
+    - "actionpack/lib/action_dispatch/journey/parser.rb"
+    - "actionmailbox/test/dummy/**/*"
+    - "activestorage/test/dummy/**/*"
+    - "actiontext/test/dummy/**/*"
+    - "tools/rail_inspector/test/fixtures/*"
     - guides/source/debugging_rails_applications.md
     - guides/source/active_support_instrumentation.md
-    - '**/node_modules/**/*'
-    - '**/CHANGELOG.md'
-    - '**/2_*_release_notes.md'
-    - '**/3_*_release_notes.md'
-    - '**/4_*_release_notes.md'
-    - '**/5_*_release_notes.md'
-    - '**/6_*_release_notes.md'
-
+    - "**/node_modules/**/*"
+    - "**/CHANGELOG.md"
+    - "**/2_*_release_notes.md"
+    - "**/3_*_release_notes.md"
+    - "**/4_*_release_notes.md"
+    - "**/5_*_release_notes.md"
+    - "**/6_*_release_notes.md"
+    - Guardfile
+    - bin/bundle
+    - config/environments/production.rb
 
 Performance:
   Exclude:
-    - '**/test/**/*'
+    - "**/test/**/*"
 
 # Prefer assert_not over assert !
 Rails/AssertNot:
   Include:
-    - '**/test/**/*'
+    - "**/test/**/*"
 
 # Prefer assert_not_x over refute_x
 Rails/RefuteMethods:
   Include:
-    - '**/test/**/*'
+    - "**/test/**/*"
 
 Rails/IndexBy:
   Enabled: true
@@ -114,7 +116,7 @@ Layout/IndentationConsistency:
   Enabled: true
   EnforcedStyle: indented_internal_methods
   Exclude:
-    - '**/*.md'
+    - "**/*.md"
 
 # Two spaces, no tabs (for indentation).
 Layout/IndentationWidth:
@@ -164,15 +166,15 @@ Style/FrozenStringLiteralComment:
   Enabled: false
   EnforcedStyle: always
   Exclude:
-    - 'actionview/test/**/*.builder'
-    - 'actionview/test/**/*.ruby'
-    - 'actionpack/test/**/*.builder'
-    - 'actionpack/test/**/*.ruby'
-    - 'activestorage/db/migrate/**/*.rb'
-    - 'activestorage/db/update_migrate/**/*.rb'
-    - 'actionmailbox/db/migrate/**/*.rb'
-    - 'actiontext/db/migrate/**/*.rb'
-    - '**/*.md'
+    - "actionview/test/**/*.builder"
+    - "actionview/test/**/*.ruby"
+    - "actionpack/test/**/*.builder"
+    - "actionpack/test/**/*.ruby"
+    - "activestorage/db/migrate/**/*.rb"
+    - "activestorage/db/update_migrate/**/*.rb"
+    - "actionmailbox/db/migrate/**/*.rb"
+    - "actiontext/db/migrate/**/*.rb"
+    - "**/*.md"
 
 Style/MapToHash:
   Enabled: true
@@ -260,12 +262,12 @@ Lint/DeprecatedClassMethods:
 Lint/InterpolationCheck:
   Enabled: true
   Exclude:
-    - '**/test/**/*'
+    - "**/test/**/*"
 
 Style/EvalWithLocation:
   Enabled: true
   Exclude:
-    - '**/test/**/*'
+    - "**/test/**/*"
 
 Style/ParenthesesAroundCondition:
   Enabled: true

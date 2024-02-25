@@ -26,6 +26,9 @@ RealWorldプロジェクトのバックエンドAPIをRailsのapiモードで実
   - [アーティクルの削除](#アーティクルの削除)
   - [アーティクルのお気に入り登録](#アーティクルのお気に入り登録)
   - [アーティクルのお気に入り解除](#アーティクルのお気に入り解除)
+- [デプロイ](#デプロイ)
+  - [デプロイ先](#デプロイ先)
+  - [インフラ構成図](#インフラ構成図)
 
 ## 要件
 
@@ -444,3 +447,11 @@ delete http://localhost:3000/api/articles/:slug/favorite
 
 レスポンスなし
 
+## デプロイ
+
+### デプロイ先
+[https://www.coderpanda.net](https://www.coderpanda.net/)
+
+### インフラ構成図
+
+![インフラ構成図](https://github.com/pandaFive/conduit-api/assets/101968892/cd054787-7294-481a-8bce-f0b34b31de77)
